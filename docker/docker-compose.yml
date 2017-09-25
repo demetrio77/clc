@@ -1,0 +1,23 @@
+version: "3"
+services:
+  clc_di:
+    image: "clc_di"
+    container_name: clc_di
+    external_links:
+      - mysql_server
+    volumes:
+      - ../userfiles:/var/www/clc/client/web/u
+      - ../inventory-files:/var/www/clc/inventory-scraper/web/files
+      - ../www:/var/www/clc
+      - ../log:/log
+      - ../session:/session
+    restart: always
+    environment:
+      - DB_HOST=mysql_server
+      - DB_NAME=clc_di
+      - DB_USER=root
+      - DB_PASS=root
+      - BASE_DOMAIN=clcdi.com:8860
+      - DEVELOPMENT=1
+    ports:
+      - "8860:80"
